@@ -1,6 +1,6 @@
-Новый сайт для создания паспортов на базе [десктопного приложения](https://github.com/DDDarkneSSS/Obsidian-Empire-Passport-Creator-App). 
+Новый сайт для создания паспортов на базе [десктопного приложения](https://github.com/djarkness/Obsidian-Empire-Passport-Creator-App). 
 
-**Сайт доступен по ссылке: https://dddarknesss.github.io/Obsidian-Empire-Passport-Creator-App-Online/**
+**Сайт доступен по ссылке: https://djarkness.github.io/Obsidian-Empire-Passport-Creator-App-Online/**
 
 Имеет все те же функции:
 * Возможность быстро и просто заполнить паспорт;
