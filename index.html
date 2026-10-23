@@ -1129,8 +1129,13 @@
       bannerLeftX: 709, bannerRightX: 858, bannerY: 0,
       favBtnWidth: 289, favBtnHeight: 260, favImgSize: 260,
       favStartX: 712, favStartY: 336, favGap: 20,
-      avatarSize: 343, avatarX: 340, avatarY: 27,
+      avatarSize: 346, avatarX: 338, avatarY: 28,
       friendsAreaX: 1018, friendsAreaY: 24, friendsAreaW: 556, friendsAreaH: 147
+    };
+    const PREVIEW_AVATAR = {
+      size: 344,
+      x: 339,
+      y: 26
     };
 
     const BADGE_COL_OFFSETS = [-17, -10, -6, 0];
@@ -1784,10 +1789,10 @@
       if (passportState.social.avatar && passportState.social.avatar.img) {
         const img = passportState.social.avatar.img;
         const imgW = img.naturalWidth, imgH = img.naturalHeight;
-        const scale = Math.max(FINAL.avatarSize / imgW, FINAL.avatarSize / imgH);
+        const scale = Math.min(PREVIEW_AVATAR.size / imgW, PREVIEW_AVATAR.size / imgH);
         const sw = imgW * scale, sh = imgH * scale;
-        const sx = FINAL.avatarX - (sw - FINAL.avatarSize) / 2;
-        const sy = FINAL.avatarY - (sh - FINAL.avatarSize) / 2;
+        const sx = PREVIEW_AVATAR.x + (PREVIEW_AVATAR.size - sw) / 2;
+        const sy = PREVIEW_AVATAR.y + (PREVIEW_AVATAR.size - sh) / 2;
         ctx.drawImage(img, previewVal(sx), previewVal(sy), previewVal(sw), previewVal(sh));
       }
       drawFriends(ctx, previewVal);
@@ -2858,6 +2863,16 @@
         const sy = y - (sh - h) / 2;
         ctx.drawImage(img, sx, sy, sw, sh);
       };
+	  const drawImageContain = (ctx, img, x, y, w, h) => {
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+        const scale = Math.min(w / imgW, h / imgH);
+        const sw = imgW * scale;
+        const sh = imgH * scale;
+        const sx = x + (w - sw) / 2;
+        const sy = y + (h - sh) / 2;
+        ctx.drawImage(img, sx, sy, sw, sh);
+      };
 
       try {
         if (passportState.background && passportState.background.img) {
@@ -2917,7 +2932,7 @@
           }
         }
         if (passportState.social.avatar && passportState.social.avatar.img) {
-          drawImageCover(outCtx, passportState.social.avatar.img, FINAL.avatarX, FINAL.avatarY, FINAL.avatarSize, FINAL.avatarSize);
+          drawImageContain(outCtx, passportState.social.avatar.img, FINAL.avatarX, FINAL.avatarY, FINAL.avatarSize, FINAL.avatarSize);
         }
         drawFriends(outCtx, x => x);
         if (passportState.frame) {
